@@ -141,7 +141,7 @@ const Homepage = () => {
                 <div className="container">
                     <div className="hero-grid">
                         <div className="hero-content">
-                            <h1>Sacred Art of Kolam</h1>
+                            <h1>Kolam — The Rhythm of Devotion</h1>
                             <p className="hero-subtitle">Traditional Indian Floor Patterns</p>
                             <p className="hero-description">
                                 Discover the ancient Tamil tradition of creating intricate geometric patterns that bring prosperity, positive energy, and spiritual harmony to your space.
@@ -306,11 +306,11 @@ const Homepage = () => {
             <footer className="footer">
                 <div className="container">
                     <div className="footer-logo">
-                        <div className="logo-icon">🎨</div>
-                        <span>Kolam Art</span>
+                        <div className="logo-icon">R</div>
+                        <span>Rhythm</span>
                     </div>
-                    <p>Preserving and celebrating the sacred art of Kolam for future generations</p>
-                    <p>Experience the beauty of traditional Indian floor patterns</p>
+                    <p>Where art, symmetry, and tradition move in Rhythm.</p>
+                    <p>Celebrating the timeless grace of Kolam through creativity and code.</p>
                 </div>
             </footer>
 

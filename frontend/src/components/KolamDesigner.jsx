@@ -1,9 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const KolamDesigner = () => {
   const canvasRef = useRef(null);
   const [drawing, setDrawing] = useState(false);
   const [prev, setPrev] = useState({ x: 0, y: 0 });
+  const navigate = useNavigate();
 
   // Symmetry toggles
   const [mirrorVertical, setMirrorVertical] = useState(false);
@@ -68,36 +70,35 @@ const KolamDesigner = () => {
     setPrev({ x, y });
   };
 
- const clearCanvas = () => {
-  const canvas = canvasRef.current;
-  const ctx = canvas.getContext("2d");
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
 
-  // Keep the dark background consistent
-  ctx.fillStyle = "rgba(39, 6, 66, 1)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Keep the dark background consistent
+    ctx.fillStyle = "rgba(39, 6, 66, 1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  if (showGrid) drawGrid();
-};
+    if (showGrid) drawGrid();
+  };
 
-const drawGrid = () => {
-  const canvas = canvasRef.current;
-  const ctx = canvas.getContext("2d");
+  const drawGrid = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
 
-  // Draw faint violet dots for grid
-  const width = canvas.width;
-  const height = canvas.height;
-  const spacing = width / 20;
+    // Draw faint violet dots for grid
+    const width = canvas.width;
+    const height = canvas.height;
+    const spacing = width / 20;
 
-  ctx.fillStyle = "rgba(160, 130, 255, 0.3)";
-  for (let x = spacing / 2; x < width; x += spacing) {
-    for (let y = spacing / 2; y < height; y += spacing) {
-      ctx.beginPath();
-      ctx.arc(x, y, 3, 0, 2 * Math.PI);
-      ctx.fill();
+    ctx.fillStyle = "rgba(160, 130, 255, 0.3)";
+    for (let x = spacing / 2; x < width; x += spacing) {
+      for (let y = spacing / 2; y < height; y += spacing) {
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, 2 * Math.PI);
+        ctx.fill();
+      }
     }
-  }
-};
-
+  };
 
   const downloadPNG = () => {
     const link = document.createElement("a");
@@ -106,25 +107,24 @@ const drawGrid = () => {
     link.click();
   };
 
- useEffect(() => {
-  const canvas = canvasRef.current;
+  useEffect(() => {
+    const canvas = canvasRef.current;
 
-  const resizeCanvas = () => {
-    const maxWidth = window.innerWidth - 60;
-    const maxHeight = window.innerHeight - 200;
+    const resizeCanvas = () => {
+      const maxWidth = window.innerWidth - 60;
+      const maxHeight = window.innerHeight - 200;
 
-    const size = Math.min(maxWidth, maxHeight) * 0.9;
-    canvas.width = size;
-    canvas.height = size;
+      const size = Math.min(maxWidth, maxHeight) * 0.9;
+      canvas.width = size;
+      canvas.height = size;
 
-    clearCanvas(); // keep dark background + grid
-  };
+      clearCanvas(); // keep dark background + grid
+    };
 
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
-  return () => window.removeEventListener("resize", resizeCanvas);
-}, [showGrid]);
-
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    return () => window.removeEventListener("resize", resizeCanvas);
+  }, [showGrid]);
 
   const Style = () => (
     <style>{`
@@ -197,12 +197,45 @@ const drawGrid = () => {
         max-height:90%;
         border:1px solid rgba(122,54,240,0.83);
       }
+
+      /* 🏠 Back Button */
+      .back-home-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        padding: 10px 18px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        border: none;
+        background: linear-gradient(135deg, #581c87 0%, #7e22ce 100%);
+        color: white;
+        transition: all 0.25s ease-in-out;
+        box-shadow: 0 3px 10px rgba(88, 28, 135, 0.35);
+        z-index: 1000;
+      }
+
+      .back-home-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(126, 34, 206, 0.45);
+        background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
+      }
     `}</style>
   );
 
   return (
     <>
       <Style />
+
+      {/* 🏠 Back to Home Button */}
+      <button
+        className="back-home-btn"
+        onClick={() => navigate("/dashboard")}
+      >
+        ← Back to Home
+      </button>
+
       <div className="kolam-app-container">
         <h1>Kolam Designer</h1>
         <p>Draw your own Kolam with symmetry!</p>

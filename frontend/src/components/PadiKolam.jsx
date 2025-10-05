@@ -452,11 +452,11 @@ const PadiKolam = () => {
             <footer className="footer">
                 <div className="container">
                     <div className="footer-logo">
-                        <div className="logo-icon">K</div>
-                        <span>Kolam Art</span>
+                        <div className="logo-icon">R</div>
+                        <span>Rhythm</span>
                     </div>
-                    <p>Preserving and celebrating the sacred art of Kolam for future generations</p>
-                    <p>Experience the beauty of traditional Indian floor patterns</p>
+                    <p>Where art, symmetry, and tradition move in Rhythm.</p>
+                    <p>Celebrating the timeless grace of Kolam through creativity and code.</p>
                 </div>
             </footer>
         </>

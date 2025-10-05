@@ -103,8 +103,8 @@ const Dashboard = () => {
             <nav className="navbar">
                 <div className="nav-container">
                     <div className="logo">
-                        <div className="logo-icon">K</div>
-                        <span>Kolam Art</span>
+                        <div className="logo-icon">R</div>
+                        <span>Rhythm</span>
                     </div>
                     <div className="nav-buttons">
                         <button className="btn btn-outline" onClick={handleLogout}>Logout</button>
@@ -118,10 +118,10 @@ const Dashboard = () => {
                 <div className="container">
                     <div className="hero-grid">
                         <div className="hero-content">
-                            <h1>Welcome to Your Creative Space</h1>
-                            <p className="hero-subtitle">Design Beautiful Kolam Patterns</p>
+                            <h1>Welcome to Rhythm — Inspired By Heritage</h1>
+                            <p className="hero-subtitle">The Art of Kolam, Reimagined</p>
                             <p className="hero-description">
-                                Choose from our powerful tools to create, design, and generate stunning Kolam patterns. Whether you're a beginner or an expert, we have the perfect tool for you.
+                                Step into a world where every line, curve, and dot dances in harmony. Rhythm lets you explore the beauty of Kolam — blending ancient artistry with modern technology to inspire creativity, culture, and connection.
                             </p>
                         </div>
                         <div className="hero-visual">
@@ -158,8 +158,8 @@ const Dashboard = () => {
                     <div className="features-grid">
                         <div className="feature-card">
                             <div className="feature-icon">AI</div>
-                            <h3>Generate a Kolam Design</h3>
-                            <p>Let artificial intelligence create unique and intricate Kolam patterns for you. Simply describe your vision or choose from various styles, and watch as our AI generates beautiful, traditional designs in seconds. Perfect for inspiration or when you need a quick, professional result.</p>
+                            <h3>Generate a Kolam </h3>
+                            <p>Let artificial intelligence craft stunning and intricate Kolam patterns for you. Describe your vision or pick from elegant styles, and watch as our AI instantly generates traditional, mesmerizing designs. Perfect for sparking inspiration and creating Kolams that blend heritage with creativity.</p>
                             <button className="btn-feature" onClick={() => navigate('/kolam')}>Start Generating</button>
                         </div>
                         
@@ -170,12 +170,15 @@ const Dashboard = () => {
                             <button className="btn-feature" onClick={() => navigate('/kolamdesigner')}>Start Drawing</button>
                         </div>
                         
-                        <div className="feature-card">
-                            <div className="feature-icon">GRID</div>
-                            <h3>Generate Dot-Grid</h3>
-                            <p>Create custom dot grids as the foundation for your Kolam patterns. Choose your grid size, spacing, and arrangement to match traditional styles. This tool is essential for practitioners who follow the classical dot-connecting method, providing a perfect template for both digital and physical creations.</p>
-                            <button className="btn-feature">Create Grid</button>
+                       <div className="feature-card">
+                        <div className="feature-icon">🎨</div>
+                        <h3>View Gallery</h3>
+                        <p>
+                            Discover your saved Kolam creations in the Gallery. Revisit your favorite patterns, or share them with others for inspiration. This feature helps you track your artistic growth, celebrate your progress, and keep all your traditional and experimental Kolam designs beautifully organized in one place.
+                        </p>
+                        <button className="btn-feature">View Gallery</button>
                         </div>
+
                     </div>
                 </div>
             </section>
@@ -267,7 +270,7 @@ const Dashboard = () => {
                         <h2>Ready to Create Your Masterpiece?</h2>
                         <p>Choose your preferred tool and start designing beautiful Kolam patterns that honor tradition while embracing modern creativity.</p>
                         <div className="cta-buttons">
-                            <button className="btn-hero btn-hero-primary">
+                            <button className="btn-hero btn-hero-primary" onClick={() => navigate('/kolamdesigner')}>
                                 <span>Start Creating Now</span>
                             </button>
                             <button className="btn-hero btn-hero-secondary">
@@ -282,11 +285,11 @@ const Dashboard = () => {
             <footer className="footer">
                 <div className="container">
                     <div className="footer-logo">
-                        <div className="logo-icon">K</div>
-                        <span>Kolam Art</span>
+                        <div className="logo-icon">R</div>
+                        <span>Rhythm</span>
                     </div>
-                    <p>Preserving and celebrating the sacred art of Kolam for future generations</p>
-                    <p>Experience the beauty of traditional Indian floor patterns</p>
+                    <p>Where art, symmetry, and tradition move in Rhythm.</p>
+                    <p>Celebrating the timeless grace of Kolam through creativity and code.</p>
                 </div>
             </footer>
             </div>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 const Kolam = () => {
   const [matrix, setMatrix] = useState([]);
@@ -8,6 +10,7 @@ const Kolam = () => {
   const [size, setSize] = useState(5);
   const [loading, setLoading] = useState(false);
   const svgRef = useRef(null);
+  const navigate = useNavigate();
 
   // Feature toggles
   const [showSymmetry, setShowSymmetry] = useState(false);
@@ -124,20 +127,24 @@ const Kolam = () => {
 
   // Download functions (unchanged)
   const downloadSVG = () => {
-    if (!svgRef.current) return;
-    const serializer = new XMLSerializer();
-    const source = serializer.serializeToString(svgRef.current);
+  if (!svgRef.current) return;
+  const serializer = new XMLSerializer();
+  const source = serializer.serializeToString(svgRef.current);
 
-    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
+  // Create a temporary SVG copy and modify white strokes to black
+  const blackSVG = source.replace(/stroke="white"/g, 'stroke="black"');
 
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'kolam.svg';
-    link.click();
+  const blob = new Blob([blackSVG], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
 
-    URL.revokeObjectURL(url);
-  };
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'kolam.svg';
+  link.click();
+
+  URL.revokeObjectURL(url);
+};
+
 
   const downloadPNG = () => {
     if (!svgRef.current) return;
@@ -305,8 +312,8 @@ const renderKolam = () => {
     : [];
 
   const dots = showGrid
-    ? Array.from({ length: size + 1 }, (_, ii) =>
-        Array.from({ length: size + 1 }, (_, jj) => (
+    ? Array.from({ length: size }, (_, ii) =>
+        Array.from({ length: size}, (_, jj) => (
           <circle
             key={`dot-${ii}-${jj}`}
             cx={(jj - minX + PADDING) * SCALE}
@@ -483,6 +490,29 @@ const renderKolam = () => {
         filter: drop-shadow(0 0 25px #c084fc) drop-shadow(0 0 40px #f5e1ff);
       }
     }
+      .back-home-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(135deg, #581c87 0%, #7e22ce 100%);
+  color: white;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 3px 10px rgba(88, 28, 135, 0.35);
+  z-index: 1000;
+}
+
+.back-home-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(126, 34, 206, 0.45);
+  background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
+}
+
   `}</style>
 );
 
@@ -490,6 +520,12 @@ const renderKolam = () => {
   return (
     <>
       <Style />
+      <button
+  className="back-home-btn"
+  onClick={() => navigate('/dashboard')}
+>
+  ← Back to Home
+</button>
       <div className="kolam-app-container">
         <h1>Kolam Generator</h1>
         <p>Create unique, intricate patterns inspired by traditional South Indian art.</p>
@@ -508,6 +544,7 @@ const renderKolam = () => {
 
           <button className="btn" onClick={downloadSVG}>Download SVG</button>
           <button className="btn" onClick={downloadPNG}>Download PNG</button>
+          
         </div>
 
         {/* Size slider */}
