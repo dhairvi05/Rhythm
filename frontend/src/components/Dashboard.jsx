@@ -170,14 +170,14 @@ const Dashboard = () => {
                             <button className="btn-feature" onClick={() => navigate('/kolamdesigner')}>Start Drawing</button>
                         </div>
                         
-                       <div className="feature-card">
+                       {/* <div className="feature-card">
                         <div className="feature-icon">🎨</div>
                         <h3>View Gallery</h3>
                         <p>
                             Discover your saved Kolam creations in the Gallery. Revisit your favorite patterns, or share them with others for inspiration. This feature helps you track your artistic growth, celebrate your progress, and keep all your traditional and experimental Kolam designs beautifully organized in one place.
                         </p>
                         <button className="btn-feature">View Gallery</button>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>
