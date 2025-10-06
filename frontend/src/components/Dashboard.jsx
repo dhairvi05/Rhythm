@@ -107,7 +107,7 @@ const Dashboard = () => {
                         <span>Rhythm</span>
                     </div>
                     <div className="nav-buttons">
-                        <button className="btn btn-outline" onClick={handleLogout}>Logout</button>
+                        <button className="btn btn-outline" onClick={() => navigate('/')}>Logout</button>
                     </div>
                 </div>
             </nav>

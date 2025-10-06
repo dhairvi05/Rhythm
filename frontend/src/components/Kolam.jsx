@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 
 const Kolam = () => {
@@ -79,31 +80,35 @@ const Kolam = () => {
   };
 
   // Fetch kolam (robust, sets steps/stepGroups using backend if supplied, otherwise generates)
-  const fetchKolam = useCallback(async () => {
-    setLoading(true);
-    try {
-          const res = await axios.get(
-      `https://sih-kolamgenerator.onrender.com/generate_kolam?size=${size}&include_dots=true`,
-      { timeout: 15000 }
-    );
+  // if not already imported
 
+// --- Kolam Fetch Function ---
+const fetchKolam = useCallback(async () => {
+  setLoading(true);
+
+  const RETRIES = 3;
+  const DELAY = 1000; // ms between retries
+
+  for (let attempt = 1; attempt <= RETRIES; attempt++) {
+    try {
+      const res = await axios.get(
+        `https://sih-kolamgenerator.onrender.com/generate_kolam?size=${size}&include_dots=true`,
+        { timeout: 15000 }
+      );
 
       const data = res.data || {};
       setMatrix(data.matrix || []);
       setPt(data.pt || []);
       setIslands(data.islands || []);
 
-      // prefer server-provided steps/groups if present
       if (Array.isArray(data.steps) && data.steps.length > 0) {
         setSteps(data.steps);
       }
 
       if (Array.isArray(data.step_groups) && data.step_groups.length >= 0) {
-        // server provided groups (assumed format: [ ["0-1","0-2"], ["1-0", ...], ... ])
         setStepGroups(data.step_groups);
       }
 
-      // Fallback: generate on frontend if server didn't provide steps/groups
       if ((!data.steps || data.steps.length === 0) || (!data.step_groups || data.step_groups.length === 0)) {
         const generated = generateStepsAndGroups(data.matrix || [], data.islands || [], size);
         if (!data.steps || data.steps.length === 0) setSteps(generated.stepsLocal);
@@ -113,12 +118,37 @@ const Kolam = () => {
       setCurrentStep(0);
       setShowStepsPanel(false);
       setLoading(false);
+      return; // ✅ success, exit loop
+
     } catch (err) {
-      console.error('fetchKolam error:', err?.response?.data ?? err.message ?? err);
-      alert('Could not fetch Kolam data. Ensure the local server is running and returns valid JSON.');
-      setLoading(false);
+      console.warn(`Attempt ${attempt} failed:`, err?.message ?? err);
+      if (attempt < RETRIES) {
+        await new Promise(r => setTimeout(r, DELAY));
+      } else {
+        console.error("All fetch attempts failed:", err);
+        alert("⚠️ Could not fetch Kolam data. Please check your internet or try again in a moment.");
+        setLoading(false);
+      }
     }
-  }, [size]);
+  }
+}, [size]);
+
+// --- Inside your JSX ---
+{/* <Button
+  onClick={fetchKolam}
+  disabled={loading}
+  className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  {loading ? (
+    <>
+      <Loader2 className="h-4 w-4 animate-spin" />
+      Generating Kolam...
+    </>
+  ) : (
+    "Generate Kolam"
+  )}
+</Button> */}
+
 
   useEffect(() => {
     fetchKolam();
@@ -433,7 +463,7 @@ const renderKolam = () => {
       background: linear-gradient(145deg, #2e1065 0%, #3b0764 100%);
       border-radius: 16px;
       backdrop-filter: blur(8px);
-      box-shadow: inset 0 0 50px rgba(255,255,255,0.05);
+      box-shadow: inset 0 0 50px rgba(204, 34, 34, 0.05);
       margin-top: 16px;
       overflow: hidden;
     }
