@@ -33,7 +33,7 @@ const KolamDesigner = () => {
       
       if (currentStroke.length > 2) {
         try {
-          const response = await fetch("http://localhost:8000/classify_stroke", {
+          const response = await fetch("https://rhythm-backend-oi2z.onrender.com/classify_stroke", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ stroke: currentStroke }),
@@ -171,7 +171,7 @@ const KolamDesigner = () => {
 
   const generateKolam = async () => {
     try {
-      const response = await fetch("http://localhost:8000/generate_kolam?size=5");
+      const response = await fetch("https://rhythm-backend-oi2z.onrender.com/generate_kolam?size=5");
       
       if (!response.ok) {
         throw new Error("Failed to fetch Kolam data");
