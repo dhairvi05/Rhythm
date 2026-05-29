@@ -40,12 +40,15 @@ This project blends **art, mathematics, and programming** and is fully **deploye
 * Client (Frontend)  
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+
 ![Canvas API](https://img.shields.io/badge/Canvas_API-000000?style=for-the-badge&logo=html5&logoColor=white)
 
 * Server (Backend)
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+
 ![FastAPI](https://img.shields.io/badge/FastAPI-05998b?style=for-the-badge&logo=fastapi&logoColor=white)
 
 * Deployment
@@ -68,15 +71,25 @@ Backend
 
 ---
 
-## 🚀 Live Demo
+## 🛠 Project Setup
 
-🔗 **Deployed Application:**
-
+* 1. Clone the repository:
+```bash
+git clone git@github.com:your-username/your-repo-name.git 
 ```
-<[your-deployment-link](rhythm-git-main-dhairvi-sanganis-projects.vercel.app)>
+
+* 2. To start the frontend:
+```bash
+cd frontend
+npm install
+npm run dev 
 ```
 
----
+* 3. To start the backend:
+```bash
+pip install -r requirements.txt
+python -m uvicorn main:app --reload   
+```
 
 
 ## ⭐ Support
