@@ -91,6 +91,25 @@ pip install -r requirements.txt
 python -m uvicorn main:app --reload   
 ```
 
+---
+
+## 💻 Usage
+
+* **Explore:** Access the home page to start generating patterns.
+
+* **Design:** Use the "Auto Generate" button or draw manually to create your unique Kolam.
+
+* **Learn:** Engage with the learning mode to see the step-by-step construction of the design.
+
+* **Customize:** Toggle symmetry buttons (Vertical, Horizontal, Diagonal) to experiment with different patterns.
+
+* **Save:** Once satisfied, click "Download PNG" to export your work.
+
+---
+
+## 📱 Screenshots
+
+* A glimpse at our project: 
 
 ## ⭐ Support
 
