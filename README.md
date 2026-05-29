@@ -1,4 +1,4 @@
-🌀 Kolam Art Generator & Learning Platform
+<h1 align="center">🌀 Kolam Art Generator & Learning Platform</h1>
 
 A Python-based application that **generates traditional Kolam designs using coordinate geometry** and provides an **interactive step-by-step learning mode** to understand how Kolam patterns are drawn.
 
@@ -59,7 +59,7 @@ Vercel for Frontend*
 🔗 **Deployed Application:**
 
 ```
-<[your-deployment-link](https://sih-kolam-generator.vercel.app/)>
+<[your-deployment-link](rhythm-git-main-dhairvi-sanganis-projects.vercel.app)>
 ```
 
 ---
