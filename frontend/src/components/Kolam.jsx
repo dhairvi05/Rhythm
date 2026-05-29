@@ -92,8 +92,8 @@ const fetchKolam = useCallback(async () => {
   for (let attempt = 1; attempt <= RETRIES; attempt++) {
     try {
       const res = await axios.get(
-        `https://sih-kolamgenerator.onrender.com/generate_kolam?size=${size}&include_dots=true`,
-        { timeout: 15000 }
+        `https://rhythm-backend-oi2z.onrender.com/generate_kolam?size=${size}&include_dots=true`,
+        { timeout: 60000 }
       );
 
       const data = res.data || {};
