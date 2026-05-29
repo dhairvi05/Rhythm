@@ -73,19 +73,19 @@ Backend
 
 ## 🛠 Project Setup
 
-* 1. Clone the repository:
+1. Clone the repository:
 ```bash
 git clone git@github.com:your-username/your-repo-name.git 
 ```
 
-* 2. To start the frontend:
+2. To start the frontend:
 ```bash
 cd frontend
 npm install
 npm run dev 
 ```
 
-* 3. To start the backend:
+3. To start the backend:
 ```bash
 pip install -r requirements.txt
 python -m uvicorn main:app --reload   
