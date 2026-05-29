@@ -14,6 +14,11 @@ from count_islands import count_islands
 
 app = FastAPI()
 
+@app.get("/")
+@app.head("/")
+def health():
+    return {"status": "ok"}
+
 class StrokeData(BaseModel):
     stroke: List[List[float]]
 
@@ -222,7 +227,3 @@ def classify_stroke(data: StrokeData):
         "score": float(min_dist),
         "template": pt_json[best_match - 1]
     }
-
-@app.get("/")
-def health():
-    return {"status": "ok"}
