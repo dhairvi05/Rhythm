@@ -91,6 +91,13 @@ const Dashboard = () => {
         };
     }, []);
 
+    const scrollToGallery = () => {
+        const typesSection = document.getElementById('types-section');
+        if(typesSection) {
+            typesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     const handleLogout = () => {
         // Handle logout logic here
         console.log('User logged out');
@@ -273,7 +280,7 @@ const Dashboard = () => {
                             <button className="btn-hero btn-hero-primary" onClick={() => navigate('/kolamdesigner')}>
                                 <span>Start Creating Now</span>
                             </button>
-                            <button className="btn-hero btn-hero-secondary">
+                            <button className="btn-hero btn-hero-secondary" onClick={scrollToGallery}>
                                 <span>View Gallery</span>
                             </button>
                         </div>

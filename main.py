@@ -3,6 +3,7 @@ from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from typing import Optional, List, Dict, Tuple
+from pydantic import BaseModel
 import numpy as np
 import random
 import traceback
@@ -12,6 +13,9 @@ from draw_kolam import load_kolam_data
 from count_islands import count_islands
 
 app = FastAPI()
+
+class StrokeData(BaseModel):
+    stroke: List[List[float]]
 
 # DEV: allow all origins; change in production
 app.add_middleware(
@@ -149,3 +153,72 @@ def generate_kolam(
         tb = traceback.format_exc()
         print(tb)
         return JSONResponse(status_code=500, content={"error": str(e), "trace": tb})
+
+# --- SHAPE CLASSIFICATION ENGINE ---
+
+def resample_stroke(stroke, num_points=20):
+    """Interpolates a stroke to have exactly 'num_points' evenly spaced along the curve."""
+    stroke = np.array(stroke)
+    if len(stroke) < 2: return stroke
+    
+    # Calculate cumulative distance along the stroke
+    diffs = np.diff(stroke, axis=0)
+    dists = np.linalg.norm(diffs, axis=1)
+    cum_dists = np.concatenate(([0], np.cumsum(dists)))
+    total_dist = cum_dists[-1]
+    
+    if total_dist == 0: return np.zeros((num_points, 2))
+    
+    # Create new evenly spaced points
+    target_dists = np.linspace(0, total_dist, num_points)
+    resampled_x = np.interp(target_dists, cum_dists, stroke[:, 0])
+    resampled_y = np.interp(target_dists, cum_dists, stroke[:, 1])
+    
+    return np.column_stack((resampled_x, resampled_y))
+
+def normalize_stroke(stroke):
+    """Scales a stroke to fit inside a 0-to-1 bounding box."""
+    min_vals = np.min(stroke, axis=0)
+    max_vals = np.max(stroke, axis=0)
+    ranges = max_vals - min_vals
+    ranges[ranges == 0] = 1 # Prevent division by zero
+    return (stroke - min_vals) / ranges
+
+@app.post("/classify_stroke")
+def classify_stroke(data: StrokeData):
+    """Receives user pixels, compares to 16 Kolam templates, returns best Tile ID."""
+    user_stroke = data.stroke
+    if len(user_stroke) < 2:
+        return {"tile_id": 1, "score": 999.0}
+    
+    # 1. Prep the user's drawing
+    user_norm = normalize_stroke(resample_stroke(user_stroke))
+    
+    best_match = 1
+    min_dist = float('inf')
+    
+    # 2. Compare against all 16 templates (pt_json is your loaded tile data)
+    for i, template in enumerate(pt_json):
+        if len(template) < 2: continue
+        
+        # Prep the template
+        temp_norm = normalize_stroke(resample_stroke(template))
+        
+        # Calculate the Mean Squared Error (MSE) distance
+        dist = np.mean(np.linalg.norm(user_norm - temp_norm, axis=1))
+        
+        # Check reverse direction! (Users might draw right-to-left instead of left-to-right)
+        dist_rev = np.mean(np.linalg.norm(user_norm - temp_norm[::-1], axis=1))
+        
+        best_dist = min(dist, dist_rev)
+        
+        # Keep track of the lowest score
+        if best_dist < min_dist:
+            min_dist = best_dist
+            best_match = i + 1  # Matrix IDs are 1-16
+            
+    return {
+        "tile_id": best_match, 
+        "score": float(min_dist),
+        "template": pt_json[best_match - 1]
+    }

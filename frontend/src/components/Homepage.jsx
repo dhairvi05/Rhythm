@@ -23,6 +23,13 @@ const Homepage = () => {
         setTimeout(() => setActiveModal(to), 200);
     };
 
+    const scrollToGallery = () => {
+        const typesSection = document.getElementById('types-section');
+        if(typesSection) {
+            typesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     useEffect(() => {
         // Navbar scroll effect
         const handleScroll = () => {
@@ -150,7 +157,7 @@ const Homepage = () => {
                                 <button className="btn-hero btn-hero-primary" onClick={() => openModal('signup')}>
                                     <span>Start Creating</span>
                                 </button>
-                                <button className="btn-hero btn-hero-secondary">
+                                <button className="btn-hero btn-hero-secondary" onClick={scrollToGallery}>
                                     <span>Explore Gallery</span>
                                 </button>
                             </div>
@@ -208,7 +215,7 @@ const Homepage = () => {
             </section>
 
             {/* Types Section */}
-            <section className="types">
+            <section className="types" id="types-section">
                 <div className="container">
                     <div className="section-header">
                         <h2 className="section-title">Types of Kolam</h2>
