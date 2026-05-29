@@ -1,4 +1,4 @@
-<h1 align="center">🌀 Kolam Art Generator & Learning Platform</h1>
+<h1 align="center">🌀 Rhythm - Kolam Art Generator & Learning Platform</h1>
 
 A Python-based application that **generates traditional Kolam designs using coordinate geometry** and provides an **interactive step-by-step learning mode** to understand how Kolam patterns are drawn.
 
@@ -26,22 +26,19 @@ This project blends **art, mathematics, and programming** and is fully **deploye
   * Uses Cartesian coordinates for pattern construction
   * Ensures scalable and reproducible designs
 
-* **Live Deployment**
+---
 
-  * Hosted and accessible via a public URL: https://sih-kolam-generator.vercel.app/
+## 🔗Links
+
+* GitHub Repository
+* [Kolam Generator Demo](rhythm-git-main-dhairvi-sanganis-projects.vercel.app)
 
 ---
 
 ## 🛠 Tech Stack
 
-* **Language:** Python
-* **Libraries:**
-
-  * `matplotlib`
-  * `numpy`
-* **Deployment:** 
-Render for Backend
-Vercel for Frontend*
+* Client (Frontend)
+(frontend\src\assets\react.avif)
 
 ---
 
