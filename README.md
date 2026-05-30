@@ -111,6 +111,16 @@ python -m uvicorn main:app --reload
 
 * A glimpse at our project: 
 
+<img src="frontend/src/assets/home.png" width="600" />
+
+<img src="frontend/src/assets/generator.png" width="600" />
+
+<img src="frontend/src/assets/beforedraw.png" width="600" />
+
+<img src="frontend/src/assets/afterdraw.png" width="600" />
+
+<img src="frontend/src/assets/final.png" width="600" />
+
 ## ⭐ Support
 
 If you found this project useful, consider giving it a ⭐ on GitHub!
