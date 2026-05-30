@@ -121,7 +121,3 @@ python -m uvicorn main:app --reload
 
 <img src="frontend/src/assets/final.png" width="600" />
 
-## ⭐ Support
-
-If you found this project useful, consider giving it a ⭐ on GitHub!
-
